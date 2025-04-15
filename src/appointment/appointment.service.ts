@@ -1,10 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AppointmentCreateDto } from './dto';
 
 @Injectable()
 export class AppointmentService {
   constructor(private prisma: PrismaService) {}
+  async getAllAppointment() {
+    try {
+      return await this.prisma.appointment.findMany({});
+    } catch (error) {
+      console.warn('Failed to fetch appointments:', error);
+      throw new Error('Failed to fetch appointments');
+    }
+  }
+
   async createAppointment(appointmentCreateDto: AppointmentCreateDto) {
     try {
       const { firstName, lastName, tel, time, date, numberTurnPatient } =
@@ -50,5 +59,18 @@ export class AppointmentService {
           'An error occurred while creating the appointment. Please try again.',
       };
     }
+  }
+
+  async deleteAppointment(id: number) {
+    const appointment = await this.prisma.appointment.findUnique({
+      where: { id },
+    });
+    if (!appointment) throw new NotFoundException('Appointment not found');
+    await this.prisma.appointment.delete({
+      where: { id },
+    });
+    return {
+      message: `Succes an appointment is deleted `,
+    };
   }
 }
