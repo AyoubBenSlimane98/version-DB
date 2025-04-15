@@ -1,6 +1,18 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { AdminService } from './admin.service';
-import { AdminCreateDto, AdminLoginDto } from './dto';
+import {
+  AdminCreateDto,
+  AdminLoginDto,
+  AdminPasswordDto,
+  AdminUpdateDto,
+} from './dto';
 
 @Controller('admin')
 export class AdminController {
@@ -12,5 +24,22 @@ export class AdminController {
   @Post('login')
   async loginAdmin(@Body() adminLoginDto: AdminLoginDto) {
     return await this.adminService.loginAdmin(adminLoginDto);
+  }
+  @Put('update-profil/:userId')
+  async updateAdminProfile(
+    @Param('userId', ParseIntPipe) userId: number,
+    @Body() adminUpdateDto: AdminUpdateDto,
+  ) {
+    return await this.adminService.updateAdminProfile(userId, adminUpdateDto);
+  }
+  @Put('update-password/:userId')
+  async updateAdminPassword(
+    @Param('userId', ParseIntPipe) userId: number,
+    @Body() adminPasswordDto: AdminPasswordDto,
+  ) {
+    return await this.adminService.updateAdminPassword(
+      userId,
+      adminPasswordDto,
+    );
   }
 }

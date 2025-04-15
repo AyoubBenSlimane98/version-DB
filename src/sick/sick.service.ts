@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { SickCreateDto, SickLoginDto } from './dto';
+import { SickCreateDto, SickLoginDto, SickUserDto } from './dto';
 import { EncryptionService } from 'src/encryption/encryption.service';
 import { TokenService } from 'src/token/token.service';
 
@@ -11,6 +11,42 @@ export class SickService {
     private readonly encryptionService: EncryptionService,
     private readonly tokenService: TokenService,
   ) {}
+  async getAllSick(): Promise<SickUserDto[]> {
+    try {
+      const users = await this.prisma.user.findMany({
+        where: {
+          sick: { isNot: null },
+          account: { isNot: null },
+        },
+        select: {
+          firstName: true,
+          lastName: true,
+          sexe: true,
+          account: {
+            select: {
+              email: true,
+            },
+          },
+          sick: {
+            select: {
+              tel: true,
+            },
+          },
+        },
+      });
+
+      return users.map((user) => ({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        sexe: user.sexe,
+        email: user.account?.email ?? null,
+        tel: user.sick?.tel ?? null,
+      }));
+    } catch (error) {
+      console.warn('Failed to fetch sick users', error);
+      throw new Error('Failed to fetch sick users');
+    }
+  }
 
   async createSickUser(sickCreateDto: SickCreateDto) {
     try {
@@ -63,7 +99,7 @@ export class SickService {
       include: {
         user: {
           include: {
-            Sick: true,
+            sick: true,
           },
         },
       },
@@ -91,5 +127,20 @@ export class SickService {
       message: 'Sick login successful',
       tokens,
     };
+  }
+  async deleteSickUser(userId: number) {
+    try {
+      await this.prisma.user.delete({
+        where: { id: userId },
+      });
+
+      return {
+        success: true,
+        message: 'User, Account, and Sick deleted successfully',
+      };
+    } catch (error) {
+      console.warn('Failed to delete sick user', error);
+      throw new Error('Failed to delete sick user');
+    }
   }
 }

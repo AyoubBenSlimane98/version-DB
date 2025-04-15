@@ -1411,46 +1411,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type UserCountOutputType
-   */
-
-  export type UserCountOutputType = {
-    Sick: number
-    Admin: number
-  }
-
-  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Sick?: boolean | UserCountOutputTypeCountSickArgs
-    Admin?: boolean | UserCountOutputTypeCountAdminArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UserCountOutputType
-     */
-    select?: UserCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountSickArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SickWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountAdminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AdminWhereInput
-  }
-
-
-  /**
    * Count Type AdminCountOutputType
    */
 
@@ -2759,9 +2719,8 @@ export namespace Prisma {
     lastName?: boolean
     sexe?: boolean
     account?: boolean | User$accountArgs<ExtArgs>
-    Sick?: boolean | User$SickArgs<ExtArgs>
-    Admin?: boolean | User$AdminArgs<ExtArgs>
-    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+    sick?: boolean | User$sickArgs<ExtArgs>
+    admin?: boolean | User$adminArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2788,9 +2747,8 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "sexe", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     account?: boolean | User$accountArgs<ExtArgs>
-    Sick?: boolean | User$SickArgs<ExtArgs>
-    Admin?: boolean | User$AdminArgs<ExtArgs>
-    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+    sick?: boolean | User$sickArgs<ExtArgs>
+    admin?: boolean | User$adminArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
   export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2799,8 +2757,8 @@ export namespace Prisma {
     name: "User"
     objects: {
       account: Prisma.$AccountPayload<ExtArgs> | null
-      Sick: Prisma.$SickPayload<ExtArgs>[]
-      Admin: Prisma.$AdminPayload<ExtArgs>[]
+      sick: Prisma.$SickPayload<ExtArgs> | null
+      admin: Prisma.$AdminPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3202,8 +3160,8 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     account<T extends User$accountArgs<ExtArgs> = {}>(args?: Subset<T, User$accountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    Sick<T extends User$SickArgs<ExtArgs> = {}>(args?: Subset<T, User$SickArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SickPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Admin<T extends User$AdminArgs<ExtArgs> = {}>(args?: Subset<T, User$AdminArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sick<T extends User$sickArgs<ExtArgs> = {}>(args?: Subset<T, User$sickArgs<ExtArgs>>): Prisma__SickClient<$Result.GetResult<Prisma.$SickPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    admin<T extends User$adminArgs<ExtArgs> = {}>(args?: Subset<T, User$adminArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3644,9 +3602,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.Sick
+   * User.sick
    */
-  export type User$SickArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$sickArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Sick
      */
@@ -3660,17 +3618,12 @@ export namespace Prisma {
      */
     include?: SickInclude<ExtArgs> | null
     where?: SickWhereInput
-    orderBy?: SickOrderByWithRelationInput | SickOrderByWithRelationInput[]
-    cursor?: SickWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SickScalarFieldEnum | SickScalarFieldEnum[]
   }
 
   /**
-   * User.Admin
+   * User.admin
    */
-  export type User$AdminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$adminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Admin
      */
@@ -3684,11 +3637,6 @@ export namespace Prisma {
      */
     include?: AdminInclude<ExtArgs> | null
     where?: AdminWhereInput
-    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
-    cursor?: AdminWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
   }
 
   /**
@@ -9252,8 +9200,8 @@ export namespace Prisma {
     lastName?: StringFilter<"User"> | string
     sexe?: StringFilter<"User"> | string
     account?: XOR<AccountNullableScalarRelationFilter, AccountWhereInput> | null
-    Sick?: SickListRelationFilter
-    Admin?: AdminListRelationFilter
+    sick?: XOR<SickNullableScalarRelationFilter, SickWhereInput> | null
+    admin?: XOR<AdminNullableScalarRelationFilter, AdminWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9262,8 +9210,8 @@ export namespace Prisma {
     lastName?: SortOrder
     sexe?: SortOrder
     account?: AccountOrderByWithRelationInput
-    Sick?: SickOrderByRelationAggregateInput
-    Admin?: AdminOrderByRelationAggregateInput
+    sick?: SickOrderByWithRelationInput
+    admin?: AdminOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9275,8 +9223,8 @@ export namespace Prisma {
     lastName?: StringFilter<"User"> | string
     sexe?: StringFilter<"User"> | string
     account?: XOR<AccountNullableScalarRelationFilter, AccountWhereInput> | null
-    Sick?: SickListRelationFilter
-    Admin?: AdminListRelationFilter
+    sick?: XOR<SickNullableScalarRelationFilter, SickWhereInput> | null
+    admin?: XOR<AdminNullableScalarRelationFilter, AdminWhereInput> | null
   }, "id">
 
   export type UserOrderByWithAggregationInput = {
@@ -9613,8 +9561,8 @@ export namespace Prisma {
     lastName: string
     sexe: string
     account?: AccountCreateNestedOneWithoutUserInput
-    Sick?: SickCreateNestedManyWithoutUserInput
-    Admin?: AdminCreateNestedManyWithoutUserInput
+    sick?: SickCreateNestedOneWithoutUserInput
+    admin?: AdminCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9623,8 +9571,8 @@ export namespace Prisma {
     lastName: string
     sexe: string
     account?: AccountUncheckedCreateNestedOneWithoutUserInput
-    Sick?: SickUncheckedCreateNestedManyWithoutUserInput
-    Admin?: AdminUncheckedCreateNestedManyWithoutUserInput
+    sick?: SickUncheckedCreateNestedOneWithoutUserInput
+    admin?: AdminUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9632,8 +9580,8 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     sexe?: StringFieldUpdateOperationsInput | string
     account?: AccountUpdateOneWithoutUserNestedInput
-    Sick?: SickUpdateManyWithoutUserNestedInput
-    Admin?: AdminUpdateManyWithoutUserNestedInput
+    sick?: SickUpdateOneWithoutUserNestedInput
+    admin?: AdminUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9642,8 +9590,8 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     sexe?: StringFieldUpdateOperationsInput | string
     account?: AccountUncheckedUpdateOneWithoutUserNestedInput
-    Sick?: SickUncheckedUpdateManyWithoutUserNestedInput
-    Admin?: AdminUncheckedUpdateManyWithoutUserNestedInput
+    sick?: SickUncheckedUpdateOneWithoutUserNestedInput
+    admin?: AdminUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10012,24 +9960,14 @@ export namespace Prisma {
     isNot?: AccountWhereInput | null
   }
 
-  export type SickListRelationFilter = {
-    every?: SickWhereInput
-    some?: SickWhereInput
-    none?: SickWhereInput
+  export type SickNullableScalarRelationFilter = {
+    is?: SickWhereInput | null
+    isNot?: SickWhereInput | null
   }
 
-  export type AdminListRelationFilter = {
-    every?: AdminWhereInput
-    some?: AdminWhereInput
-    none?: AdminWhereInput
-  }
-
-  export type SickOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type AdminOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type AdminNullableScalarRelationFilter = {
+    is?: AdminWhereInput | null
+    isNot?: AdminWhereInput | null
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -10291,18 +10229,16 @@ export namespace Prisma {
     connect?: AccountWhereUniqueInput
   }
 
-  export type SickCreateNestedManyWithoutUserInput = {
-    create?: XOR<SickCreateWithoutUserInput, SickUncheckedCreateWithoutUserInput> | SickCreateWithoutUserInput[] | SickUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SickCreateOrConnectWithoutUserInput | SickCreateOrConnectWithoutUserInput[]
-    createMany?: SickCreateManyUserInputEnvelope
-    connect?: SickWhereUniqueInput | SickWhereUniqueInput[]
+  export type SickCreateNestedOneWithoutUserInput = {
+    create?: XOR<SickCreateWithoutUserInput, SickUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SickCreateOrConnectWithoutUserInput
+    connect?: SickWhereUniqueInput
   }
 
-  export type AdminCreateNestedManyWithoutUserInput = {
-    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput> | AdminCreateWithoutUserInput[] | AdminUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AdminCreateOrConnectWithoutUserInput | AdminCreateOrConnectWithoutUserInput[]
-    createMany?: AdminCreateManyUserInputEnvelope
-    connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+  export type AdminCreateNestedOneWithoutUserInput = {
+    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutUserInput
+    connect?: AdminWhereUniqueInput
   }
 
   export type AccountUncheckedCreateNestedOneWithoutUserInput = {
@@ -10311,18 +10247,16 @@ export namespace Prisma {
     connect?: AccountWhereUniqueInput
   }
 
-  export type SickUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<SickCreateWithoutUserInput, SickUncheckedCreateWithoutUserInput> | SickCreateWithoutUserInput[] | SickUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SickCreateOrConnectWithoutUserInput | SickCreateOrConnectWithoutUserInput[]
-    createMany?: SickCreateManyUserInputEnvelope
-    connect?: SickWhereUniqueInput | SickWhereUniqueInput[]
+  export type SickUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<SickCreateWithoutUserInput, SickUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SickCreateOrConnectWithoutUserInput
+    connect?: SickWhereUniqueInput
   }
 
-  export type AdminUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput> | AdminCreateWithoutUserInput[] | AdminUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AdminCreateOrConnectWithoutUserInput | AdminCreateOrConnectWithoutUserInput[]
-    createMany?: AdminCreateManyUserInputEnvelope
-    connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+  export type AdminUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutUserInput
+    connect?: AdminWhereUniqueInput
   }
 
   export type AccountUpdateOneWithoutUserNestedInput = {
@@ -10335,32 +10269,24 @@ export namespace Prisma {
     update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutUserInput, AccountUpdateWithoutUserInput>, AccountUncheckedUpdateWithoutUserInput>
   }
 
-  export type SickUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SickCreateWithoutUserInput, SickUncheckedCreateWithoutUserInput> | SickCreateWithoutUserInput[] | SickUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SickCreateOrConnectWithoutUserInput | SickCreateOrConnectWithoutUserInput[]
-    upsert?: SickUpsertWithWhereUniqueWithoutUserInput | SickUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SickCreateManyUserInputEnvelope
-    set?: SickWhereUniqueInput | SickWhereUniqueInput[]
-    disconnect?: SickWhereUniqueInput | SickWhereUniqueInput[]
-    delete?: SickWhereUniqueInput | SickWhereUniqueInput[]
-    connect?: SickWhereUniqueInput | SickWhereUniqueInput[]
-    update?: SickUpdateWithWhereUniqueWithoutUserInput | SickUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SickUpdateManyWithWhereWithoutUserInput | SickUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SickScalarWhereInput | SickScalarWhereInput[]
+  export type SickUpdateOneWithoutUserNestedInput = {
+    create?: XOR<SickCreateWithoutUserInput, SickUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SickCreateOrConnectWithoutUserInput
+    upsert?: SickUpsertWithoutUserInput
+    disconnect?: SickWhereInput | boolean
+    delete?: SickWhereInput | boolean
+    connect?: SickWhereUniqueInput
+    update?: XOR<XOR<SickUpdateToOneWithWhereWithoutUserInput, SickUpdateWithoutUserInput>, SickUncheckedUpdateWithoutUserInput>
   }
 
-  export type AdminUpdateManyWithoutUserNestedInput = {
-    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput> | AdminCreateWithoutUserInput[] | AdminUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AdminCreateOrConnectWithoutUserInput | AdminCreateOrConnectWithoutUserInput[]
-    upsert?: AdminUpsertWithWhereUniqueWithoutUserInput | AdminUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: AdminCreateManyUserInputEnvelope
-    set?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
-    disconnect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
-    delete?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
-    connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
-    update?: AdminUpdateWithWhereUniqueWithoutUserInput | AdminUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: AdminUpdateManyWithWhereWithoutUserInput | AdminUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: AdminScalarWhereInput | AdminScalarWhereInput[]
+  export type AdminUpdateOneWithoutUserNestedInput = {
+    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutUserInput
+    upsert?: AdminUpsertWithoutUserInput
+    disconnect?: AdminWhereInput | boolean
+    delete?: AdminWhereInput | boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutUserInput, AdminUpdateWithoutUserInput>, AdminUncheckedUpdateWithoutUserInput>
   }
 
   export type AccountUncheckedUpdateOneWithoutUserNestedInput = {
@@ -10373,32 +10299,24 @@ export namespace Prisma {
     update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutUserInput, AccountUpdateWithoutUserInput>, AccountUncheckedUpdateWithoutUserInput>
   }
 
-  export type SickUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SickCreateWithoutUserInput, SickUncheckedCreateWithoutUserInput> | SickCreateWithoutUserInput[] | SickUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SickCreateOrConnectWithoutUserInput | SickCreateOrConnectWithoutUserInput[]
-    upsert?: SickUpsertWithWhereUniqueWithoutUserInput | SickUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SickCreateManyUserInputEnvelope
-    set?: SickWhereUniqueInput | SickWhereUniqueInput[]
-    disconnect?: SickWhereUniqueInput | SickWhereUniqueInput[]
-    delete?: SickWhereUniqueInput | SickWhereUniqueInput[]
-    connect?: SickWhereUniqueInput | SickWhereUniqueInput[]
-    update?: SickUpdateWithWhereUniqueWithoutUserInput | SickUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SickUpdateManyWithWhereWithoutUserInput | SickUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SickScalarWhereInput | SickScalarWhereInput[]
+  export type SickUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<SickCreateWithoutUserInput, SickUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SickCreateOrConnectWithoutUserInput
+    upsert?: SickUpsertWithoutUserInput
+    disconnect?: SickWhereInput | boolean
+    delete?: SickWhereInput | boolean
+    connect?: SickWhereUniqueInput
+    update?: XOR<XOR<SickUpdateToOneWithWhereWithoutUserInput, SickUpdateWithoutUserInput>, SickUncheckedUpdateWithoutUserInput>
   }
 
-  export type AdminUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput> | AdminCreateWithoutUserInput[] | AdminUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AdminCreateOrConnectWithoutUserInput | AdminCreateOrConnectWithoutUserInput[]
-    upsert?: AdminUpsertWithWhereUniqueWithoutUserInput | AdminUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: AdminCreateManyUserInputEnvelope
-    set?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
-    disconnect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
-    delete?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
-    connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
-    update?: AdminUpdateWithWhereUniqueWithoutUserInput | AdminUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: AdminUpdateManyWithWhereWithoutUserInput | AdminUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: AdminScalarWhereInput | AdminScalarWhereInput[]
+  export type AdminUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutUserInput
+    upsert?: AdminUpsertWithoutUserInput
+    disconnect?: AdminWhereInput | boolean
+    delete?: AdminWhereInput | boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutUserInput, AdminUpdateWithoutUserInput>, AdminUncheckedUpdateWithoutUserInput>
   }
 
   export type UserCreateNestedOneWithoutSickInput = {
@@ -10596,8 +10514,8 @@ export namespace Prisma {
     firstName: string
     lastName: string
     sexe: string
-    Sick?: SickCreateNestedManyWithoutUserInput
-    Admin?: AdminCreateNestedManyWithoutUserInput
+    sick?: SickCreateNestedOneWithoutUserInput
+    admin?: AdminCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountInput = {
@@ -10605,8 +10523,8 @@ export namespace Prisma {
     firstName: string
     lastName: string
     sexe: string
-    Sick?: SickUncheckedCreateNestedManyWithoutUserInput
-    Admin?: AdminUncheckedCreateNestedManyWithoutUserInput
+    sick?: SickUncheckedCreateNestedOneWithoutUserInput
+    admin?: AdminUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountInput = {
@@ -10629,8 +10547,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     sexe?: StringFieldUpdateOperationsInput | string
-    Sick?: SickUpdateManyWithoutUserNestedInput
-    Admin?: AdminUpdateManyWithoutUserNestedInput
+    sick?: SickUpdateOneWithoutUserNestedInput
+    admin?: AdminUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountInput = {
@@ -10638,8 +10556,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     sexe?: StringFieldUpdateOperationsInput | string
-    Sick?: SickUncheckedUpdateManyWithoutUserNestedInput
-    Admin?: AdminUncheckedUpdateManyWithoutUserNestedInput
+    sick?: SickUncheckedUpdateOneWithoutUserNestedInput
+    admin?: AdminUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -10671,11 +10589,6 @@ export namespace Prisma {
     create: XOR<SickCreateWithoutUserInput, SickUncheckedCreateWithoutUserInput>
   }
 
-  export type SickCreateManyUserInputEnvelope = {
-    data: SickCreateManyUserInput | SickCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type AdminCreateWithoutUserInput = {
     Articles?: ArticlesCreateNestedManyWithoutAdminInput
   }
@@ -10687,11 +10600,6 @@ export namespace Prisma {
   export type AdminCreateOrConnectWithoutUserInput = {
     where: AdminWhereUniqueInput
     create: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
-  }
-
-  export type AdminCreateManyUserInputEnvelope = {
-    data: AdminCreateManyUserInput | AdminCreateManyUserInput[]
-    skipDuplicates?: boolean
   }
 
   export type AccountUpsertWithoutUserInput = {
@@ -10716,51 +10624,42 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
   }
 
-  export type SickUpsertWithWhereUniqueWithoutUserInput = {
-    where: SickWhereUniqueInput
+  export type SickUpsertWithoutUserInput = {
     update: XOR<SickUpdateWithoutUserInput, SickUncheckedUpdateWithoutUserInput>
     create: XOR<SickCreateWithoutUserInput, SickUncheckedCreateWithoutUserInput>
+    where?: SickWhereInput
   }
 
-  export type SickUpdateWithWhereUniqueWithoutUserInput = {
-    where: SickWhereUniqueInput
+  export type SickUpdateToOneWithWhereWithoutUserInput = {
+    where?: SickWhereInput
     data: XOR<SickUpdateWithoutUserInput, SickUncheckedUpdateWithoutUserInput>
   }
 
-  export type SickUpdateManyWithWhereWithoutUserInput = {
-    where: SickScalarWhereInput
-    data: XOR<SickUpdateManyMutationInput, SickUncheckedUpdateManyWithoutUserInput>
+  export type SickUpdateWithoutUserInput = {
+    tel?: StringFieldUpdateOperationsInput | string
   }
 
-  export type SickScalarWhereInput = {
-    AND?: SickScalarWhereInput | SickScalarWhereInput[]
-    OR?: SickScalarWhereInput[]
-    NOT?: SickScalarWhereInput | SickScalarWhereInput[]
-    tel?: StringFilter<"Sick"> | string
-    userId?: IntFilter<"Sick"> | number
+  export type SickUncheckedUpdateWithoutUserInput = {
+    tel?: StringFieldUpdateOperationsInput | string
   }
 
-  export type AdminUpsertWithWhereUniqueWithoutUserInput = {
-    where: AdminWhereUniqueInput
+  export type AdminUpsertWithoutUserInput = {
     update: XOR<AdminUpdateWithoutUserInput, AdminUncheckedUpdateWithoutUserInput>
     create: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+    where?: AdminWhereInput
   }
 
-  export type AdminUpdateWithWhereUniqueWithoutUserInput = {
-    where: AdminWhereUniqueInput
+  export type AdminUpdateToOneWithWhereWithoutUserInput = {
+    where?: AdminWhereInput
     data: XOR<AdminUpdateWithoutUserInput, AdminUncheckedUpdateWithoutUserInput>
   }
 
-  export type AdminUpdateManyWithWhereWithoutUserInput = {
-    where: AdminScalarWhereInput
-    data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyWithoutUserInput>
+  export type AdminUpdateWithoutUserInput = {
+    Articles?: ArticlesUpdateManyWithoutAdminNestedInput
   }
 
-  export type AdminScalarWhereInput = {
-    AND?: AdminScalarWhereInput | AdminScalarWhereInput[]
-    OR?: AdminScalarWhereInput[]
-    NOT?: AdminScalarWhereInput | AdminScalarWhereInput[]
-    userId?: IntFilter<"Admin"> | number
+  export type AdminUncheckedUpdateWithoutUserInput = {
+    Articles?: ArticlesUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type UserCreateWithoutSickInput = {
@@ -10768,7 +10667,7 @@ export namespace Prisma {
     lastName: string
     sexe: string
     account?: AccountCreateNestedOneWithoutUserInput
-    Admin?: AdminCreateNestedManyWithoutUserInput
+    admin?: AdminCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSickInput = {
@@ -10777,7 +10676,7 @@ export namespace Prisma {
     lastName: string
     sexe: string
     account?: AccountUncheckedCreateNestedOneWithoutUserInput
-    Admin?: AdminUncheckedCreateNestedManyWithoutUserInput
+    admin?: AdminUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSickInput = {
@@ -10801,7 +10700,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     sexe?: StringFieldUpdateOperationsInput | string
     account?: AccountUpdateOneWithoutUserNestedInput
-    Admin?: AdminUpdateManyWithoutUserNestedInput
+    admin?: AdminUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSickInput = {
@@ -10810,7 +10709,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     sexe?: StringFieldUpdateOperationsInput | string
     account?: AccountUncheckedUpdateOneWithoutUserNestedInput
-    Admin?: AdminUncheckedUpdateManyWithoutUserNestedInput
+    admin?: AdminUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAdminInput = {
@@ -10818,7 +10717,7 @@ export namespace Prisma {
     lastName: string
     sexe: string
     account?: AccountCreateNestedOneWithoutUserInput
-    Sick?: SickCreateNestedManyWithoutUserInput
+    sick?: SickCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAdminInput = {
@@ -10827,7 +10726,7 @@ export namespace Prisma {
     lastName: string
     sexe: string
     account?: AccountUncheckedCreateNestedOneWithoutUserInput
-    Sick?: SickUncheckedCreateNestedManyWithoutUserInput
+    sick?: SickUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAdminInput = {
@@ -10876,7 +10775,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     sexe?: StringFieldUpdateOperationsInput | string
     account?: AccountUpdateOneWithoutUserNestedInput
-    Sick?: SickUpdateManyWithoutUserNestedInput
+    sick?: SickUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAdminInput = {
@@ -10885,7 +10784,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     sexe?: StringFieldUpdateOperationsInput | string
     account?: AccountUncheckedUpdateOneWithoutUserNestedInput
-    Sick?: SickUncheckedUpdateManyWithoutUserNestedInput
+    sick?: SickUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type ArticlesUpsertWithWhereUniqueWithoutAdminInput = {
@@ -10946,38 +10845,6 @@ export namespace Prisma {
 
   export type AdminUncheckedUpdateWithoutArticlesInput = {
     userId?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type SickCreateManyUserInput = {
-    tel: string
-  }
-
-  export type AdminCreateManyUserInput = {
-
-  }
-
-  export type SickUpdateWithoutUserInput = {
-    tel?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type SickUncheckedUpdateWithoutUserInput = {
-    tel?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type SickUncheckedUpdateManyWithoutUserInput = {
-    tel?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type AdminUpdateWithoutUserInput = {
-    Articles?: ArticlesUpdateManyWithoutAdminNestedInput
-  }
-
-  export type AdminUncheckedUpdateWithoutUserInput = {
-    Articles?: ArticlesUncheckedUpdateManyWithoutAdminNestedInput
-  }
-
-  export type AdminUncheckedUpdateManyWithoutUserInput = {
-
   }
 
   export type ArticlesCreateManyAdminInput = {

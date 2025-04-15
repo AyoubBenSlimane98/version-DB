@@ -1,8 +1,18 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { EncryptionService } from 'src/encryption/encryption.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { TokenService } from 'src/token/token.service';
-import { AdminCreateDto, AdminLoginDto } from './dto';
+import {
+  AdminCreateDto,
+  AdminLoginDto,
+  AdminPasswordDto,
+  AdminUpdateDto,
+} from './dto';
 
 @Injectable()
 export class AdminService {
@@ -74,7 +84,7 @@ export class AdminService {
       include: {
         user: {
           include: {
-            Admin: true,
+            admin: true,
           },
         },
       },
@@ -95,6 +105,68 @@ export class AdminService {
     return {
       message: 'Admin login successful',
       tokens,
+    };
+  }
+
+  async updateAdminProfile(userId: number, adminUpdateDto: AdminUpdateDto) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new NotFoundException('Admin not found!');
+    }
+    console.log(adminUpdateDto);
+    const updatedProfile = await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        firstName: adminUpdateDto.firstName,
+        lastName: adminUpdateDto.lastName,
+        sexe: adminUpdateDto.sexe,
+      },
+    });
+
+    return {
+      success: true,
+      message: 'Profile updated successfully',
+      data: updatedProfile,
+    };
+  }
+
+  async updateAdminPassword(
+    userId: number,
+    adminPasswordDto: AdminPasswordDto,
+  ) {
+    const { oldPassword, newPassword } = adminPasswordDto;
+
+    const account = await this.prisma.account.findUnique({
+      where: { userId },
+    });
+
+    if (!account) {
+      throw new NotFoundException('Account not found!');
+    }
+
+    const isMatch = await this.encryptionService.comparePasswords(
+      oldPassword,
+      account.password,
+    );
+
+    if (!isMatch) {
+      throw new BadRequestException('Old password is incorrect!');
+    }
+
+    const hashedPassword =
+      await this.encryptionService.hashPassword(newPassword);
+
+    await this.prisma.account.update({
+      where: { id: account.id },
+      data: { password: hashedPassword },
+    });
+
+    return {
+      success: true,
+      message: 'Password updated successfully',
     };
   }
 }

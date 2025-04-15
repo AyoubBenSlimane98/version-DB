@@ -4,6 +4,7 @@ generator client {
 }
 
 datasource db {
+  // provider = "mysql"
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
@@ -22,8 +23,8 @@ model User {
   lastName  String
   sexe      String
   account   Account?
-  Sick      Sick[]
-  Admin     Admin[]
+  sick      Sick?
+  admin     Admin?
 }
 
 model Sick {

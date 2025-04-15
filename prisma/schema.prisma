@@ -9,8 +9,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-
 model Account {
   id       Int    @id @default(autoincrement())
   email    String @unique
@@ -25,8 +23,8 @@ model User {
   lastName  String
   sexe      String
   account   Account?
-  Sick      Sick[]
-  Admin     Admin[]
+  sick      Sick?
+  admin     Admin?
 }
 
 model Sick {

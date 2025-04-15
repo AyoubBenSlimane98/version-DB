@@ -28,3 +28,11 @@ export class SickCreateDto {
   @MinLength(6, { message: 'Password must be at least 6 characters long' })
   password: string;
 }
+
+export type SickUserDto = {
+  firstName: string;
+  lastName: string;
+  sexe: string;
+  email: string | null;
+  tel: string | null;
+};
