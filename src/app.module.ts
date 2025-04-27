@@ -6,6 +6,9 @@ import { EncryptionModule } from './encryption/encryption.module';
 import { TokenModule } from './token/token.module';
 import { AppointmentModule } from './appointment/appointment.module';
 import { ArticlesModule } from './articles/articles.module';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { EmailModule } from './email/email.module';
+import { OptModule } from './opt/opt.module';
 
 @Module({
   imports: [
@@ -16,6 +19,9 @@ import { ArticlesModule } from './articles/articles.module';
     TokenModule,
     AppointmentModule,
     ArticlesModule,
+    AuthenticationModule,
+    EmailModule,
+    OptModule,
   ],
   controllers: [],
   providers: [],
