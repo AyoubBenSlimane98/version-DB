@@ -14,7 +14,7 @@ async function bootstrap() {
     }),
   );
   app.enableCors({
-    origin: ['http://localhost:4000'],
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
   });
   const config = new DocumentBuilder()

@@ -20,7 +20,13 @@ export class AppointmentService {
         appointmentCreateDto;
 
       const appointmentDate = new Date(date);
-
+      if (appointmentDate < new Date()) {
+        return {
+          success: false,
+          message:
+            'The selected date is in the past. Please choose a future date.',
+        };
+      }
       const existingAppointment = await this.prisma.appointment.findFirst({
         where: {
           date: appointmentDate,
